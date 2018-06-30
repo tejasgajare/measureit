@@ -11,7 +11,7 @@ import android.widget.TextView;
 import org.opencv.android.OpenCVLoader;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     static {
         System.loadLibrary("native-lib");
     }
