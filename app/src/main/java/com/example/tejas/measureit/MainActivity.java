@@ -3,23 +3,35 @@ package com.example.tejas.measureit;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import org.opencv.android.OpenCVLoader;
 
+public class MainActivity extends AppCompatActivity {
+    
     static {
         System.loadLibrary("native-lib");
     }
 
     private static final String TAG = "MainActivity";
+
     int value = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.i(TAG, "onCreate");
+        if(OpenCVLoader.initDebug()){
+            Log.i(TAG, "OpenCV Loaded");
+
+        }
+        else{
+            Log.i(TAG, "OpenCV Cannot Be loaded");
+        }
 
         Button BTNmyProjects = (Button) findViewById(R.id.BTNmyProjects);
         Button BTNcalibrate = (Button) findViewById(R.id.BTNcalibrate);
