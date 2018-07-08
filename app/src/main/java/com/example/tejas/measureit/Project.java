@@ -1,6 +1,8 @@
 package com.example.tejas.measureit;
 
-public class Project {
+import java.io.Serializable;
+
+public class Project implements Serializable {
     private int id;
     private String title;
     private String desc;
