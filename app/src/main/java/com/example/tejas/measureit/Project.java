@@ -29,7 +29,6 @@ public class Project implements Serializable {
         return desc;
     }
 
-
     public String getMeasurements() {
         return measurements;
     }

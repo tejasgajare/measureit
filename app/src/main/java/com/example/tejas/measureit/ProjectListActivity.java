@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ProjectListActivity extends AppCompatActivity implements NewProjectDialog.NewProjectDialogListener{
@@ -50,14 +49,14 @@ public class ProjectListActivity extends AppCompatActivity implements NewProject
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.projectRecycler);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
 
         projectList = new ArrayList<>();
 
-        myDB = new DatabaseHelper(this);
+        myDB = DatabaseHelper.getInstance(this);
 
         //Fire SELECT query and add the received the to projectList
         //This will be done each time onCreate runs.
@@ -74,9 +73,11 @@ public class ProjectListActivity extends AppCompatActivity implements NewProject
 
                 addToProjectList(++dataCount, PROJECT_TITLE, PROJECT_DESCRIPTION, PROJECT_MEASUREMENT);
             }
+            res.close();
         }
+        myDB.close();
 
-        RecyclerView.Adapter mAdapter = new MyAdapter(this, projectList);
+        RecyclerView.Adapter mAdapter = new ProjectAdapter(this, projectList);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -102,7 +103,6 @@ public class ProjectListActivity extends AppCompatActivity implements NewProject
                     "Failed",
                     Toast.LENGTH_LONG).show();
         }
-
 
     }
 

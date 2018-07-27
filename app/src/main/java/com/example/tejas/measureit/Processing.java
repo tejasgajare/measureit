@@ -43,6 +43,7 @@ public class Processing {
     public Mat findROI(Mat inputMat, int color){
 
         if(color == RED) {
+            //Define a range to subtract Red Color from image.
             Imgproc.cvtColor(inputMat, hsv, Imgproc.COLOR_RGB2HSV);
             Core.inRange(hsv, new Scalar(0, 70, 50), new Scalar(10, 255, 255), mask1);
             Core.inRange(hsv, new Scalar(170, 70, 50), new Scalar(180, 255, 255), mask2);
@@ -54,10 +55,12 @@ public class Processing {
             Core.inRange(hsv, new Scalar(35,100,50), new Scalar(85,255,255), mask);
         }
 
+        //Noise reduction.
         Mat kernelOpen = Mat.ones(new Size(10,10), CvType.CV_8U);
         Mat kernelClose = Mat.ones(new Size(20,20), CvType.CV_8U);
 
         Mat opening = new Mat();
+
         Imgproc.morphologyEx(mask, opening, Imgproc.MORPH_OPEN, kernelOpen);
         Imgproc.morphologyEx(opening, mask, Imgproc.MORPH_CLOSE, kernelClose);
         Log.i(TAG, "Noise Removed");
@@ -212,6 +215,7 @@ public class Processing {
     }
 
     private Point[] orderPoints(Point[] rect){
+        //This functions makes sure that the ordering of points is according to the convention.
         Point[] orderedRect = new Point[4];
         int A = 0, B = 0, C = 0, D = 0;
 
@@ -247,10 +251,10 @@ public class Processing {
             }
         }
 
-        orderedRect[0] = new Point(rect[A].x, rect[A].y);
-        orderedRect[1] = new Point(rect[B].x, rect[B].y);
-        orderedRect[2] = new Point(rect[C].x, rect[C].y);
-        orderedRect[3] = new Point(rect[D].x, rect[D].y);
+        orderedRect[0] = new Point(rect[A].x, rect[A].y);   //TopLeft
+        orderedRect[1] = new Point(rect[B].x, rect[B].y);   //TopRight
+        orderedRect[2] = new Point(rect[C].x, rect[C].y);   //BottomLeft
+        orderedRect[3] = new Point(rect[D].x, rect[D].y);   //BottomRight
 
         Log.i(TAG, "Points Ordered");
 

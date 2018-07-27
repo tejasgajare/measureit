@@ -19,28 +19,28 @@ import android.widget.Toast;
 import java.util.Iterator;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder> {
 
-    private static final String TAG = "MyAdapter";
-    private MyAdapter myAdapter;
+    private static final String TAG = "ProjectAdapter";
+    private ProjectAdapter projectAdapter;
     private List<Project> projectList;
     private Context mCtx;
 
     DatabaseHelper myDB;
 
 
-    public MyAdapter(Context mCtx, List<Project> projectList){
+    public ProjectAdapter(Context mCtx, List<Project> projectList){
         this.mCtx = mCtx;
         this.projectList = projectList;
         this.myDB = new DatabaseHelper(mCtx);
-        this.myAdapter = this;
+        this.projectAdapter = this;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.list_layout_item, parent, false);
+        View view = inflater.inflate(R.layout.project_list_layout_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -81,7 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                                             iter.remove();
                                         }
                                     }
-                                    myAdapter.notifyDataSetChanged();
+                                    projectAdapter.notifyDataSetChanged();
                                     Toast.makeText(mCtx,
                                             "Project Removed",
                                             Toast.LENGTH_LONG).show();
@@ -106,7 +106,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Card Clicked");
-                Intent intent = new Intent(v.getContext(),ViewMeasurementsActivity.class);
+                Intent intent = new Intent(v.getContext(),ImageListActivity.class);
                 intent.putExtra("Project", project);
                 v.getContext().startActivity(intent);
             }
